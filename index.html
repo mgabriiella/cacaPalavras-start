@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo de Palavras - Tecnologias Web</title>
+  <link rel="stylesheet" href="style.css"></style>
+</head>
+<body>
+  <h1>Jogo de Palavras - Tema: Tecnologias Web</h1>
+
+  <div id="board"></div>
+
+  <div id="input-section">
+    <label for="word-input">Digite uma palavra (ou "sair" para encerrar): </label>
+    <input type="text" id="word-input">
+    <button onclick="checkWord()">Verificar</button>
+  </div>
+
+  <div id="message"></div>
+
+  <script>
+    // Lista de palavras que o jogador deve encontrar
+    const palavras = ["HTML", "CSS", "REACT", "PYTHON", "NODE", "JAVA"];
+    let encontradas = []; // Lista para armazenar as palavras já encontradas
+
+    // Definir a grade manualmente com uma matriz 6x6, incluindo as palavras de forma discreta
+    const grade = [
+      ["H", "T", "M", "L", "N", "P"],
+      ["C", "T", "Y", "T", "O", "Y"],
+      ["R", "W", "V", "C", "D", "T"],
+      ["J", "A", "V", "A", "E", "H"],
+      ["D", "U", "V", "E", "R", "O"],
+      ["C", "S", "S", "R", "Y", "N"]
+    ];
+
+    // Função para exibir a grade no HTML (apenas uma vez)
+    function printBoard() {
+      const boardDiv = document.getElementById('board');
+      boardDiv.innerHTML = ''; // Limpa o conteúdo atual da grade
+      grade.forEach(linha => {
+        linha.forEach(cell => {
+          const cellDiv = document.createElement('div');
+          cellDiv.classList.add('cell');
+          cellDiv.textContent = cell;
+          boardDiv.appendChild(cellDiv);
+        });
+      });
+    }
+
+    // Função para verificar se a palavra digitada é válida
+    function checkWord() {
+      const input = document.getElementById('word-input').value.toUpperCase().trim();
+      const messageDiv = document.getElementById('message');
+      
+      // Se o jogador digitar "sair", o jogo é encerrado
+      if (input === "SAIR") {
+        messageDiv.textContent = "Jogo encerrado!";
+        return;
+      }
+
+      // Verifica se a palavra digitada está na lista de palavras e se ainda não foi encontrada
+      if (palavras.includes(input) && !encontradas.includes(input)) {
+        encontradas.push(input);
+        messageDiv.textContent = `Você encontrou: ${input}. Quantidade de palavras restantes: ${palavras.filter(p => !encontradas.includes(p)).length}`;
+      } else {
+        messageDiv.textContent = "Palavra inválida ou já encontrada.";
+      }
+
+      // Se o jogador encontrou todas as palavras
+      if (encontradas.length === palavras.length) {
+        messageDiv.textContent = "Você encontrou todas as palavras! Parabéns!";
+      }
+
+      // Limpa o campo de entrada
+      document.getElementById('word-input').value = '';
+    }
+
+    // Inicializa o jogo
+    printBoard();  // Exibe a grade no início
+  </script>
+
+</body>
+</html>
