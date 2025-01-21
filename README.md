@@ -17,7 +17,7 @@ Encontrar todas as palavras relacionadas ao desenvolvimento web na grade de 6x6.
 1. **Clone o repositório** para sua máquina local:
 
    ```bash
-   git clone https://github.com/seu-usuario/nome-do-repositorio.git
+   git clone https://github.com/seu-usuario/cacaPalavras-start.git
 
 
   </div>
